@@ -36,7 +36,7 @@ namespace WebAPI.Business.Concrete
         public IResult Insert(Product product)
         {
             _rp.Insert(product);
-            return new ErrorResult("Product nesnesi eklendi.");
+            return new SuccessResult("Product nesnesi eklendi.");
         }
 
         public IResult Update(Product product)
