@@ -12,7 +12,7 @@ namespace WebAPI.DataAccess.Concrete.EntityFramework.DataBase
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Northwind;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-G2VNR8H\SQLEXPRESS;Database=NORTHWND;Trusted_Connection=true");
         }
 
         public DbSet<Product> Products { get; set; }

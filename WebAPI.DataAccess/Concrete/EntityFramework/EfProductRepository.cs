@@ -10,7 +10,7 @@ using WebAPI.Entities;
 
 namespace WebAPI.DataAccess.Concrete.EntityFramework
 {
-    public class ProductRepository : EfEntityRepository<Product, NothwindContext>,IProductRepository
+    public class EfProductRepository : EfEntityRepository<Product, NothwindContext>,IProductRepository
     {
 
     }
