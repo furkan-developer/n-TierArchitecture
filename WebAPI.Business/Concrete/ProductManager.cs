@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Business.Abstact;
+using WebAPI.Core.Utilities.ResultStructure;
+using WebAPI.Core.Utilities.ResultStructure.Abstact;
+using WebAPI.Core.Utilities.ResultStructure.Concrete;
 using WebAPI.DataAccess.Abstract;
 using WebAPI.Entities;
 
@@ -18,24 +21,28 @@ namespace WebAPI.Business.Concrete
             _rp = rp;
         }
 
-        public void Delete(Product product)
+        public IResult Delete(Product product)
         {
             _rp.Delete(product);
+            return new SuccessResult("Ürün silme işlemi başarılı");
         }
 
-        public List<Product> GetAll()
+        public IDataResult<List<Product>> GetAll()
         {
-            return _rp.GetAll();
+            return new SuccessDataResult<List<Product>>(_rp.GetAll(), "Ürünler listesi getirildi");
+
         }
 
-        public void Insert(Product product)
+        public IResult Insert(Product product)
         {
             _rp.Insert(product);
+            return new ErrorResult("Product nesnesi eklendi.");
         }
 
-        public void Update(Product product)
+        public IResult Update(Product product)
         {
             _rp.Update(product);
+            return new SuccessResult("Ürün güncelleme işlemi başarılı");
         }
     }
 }
