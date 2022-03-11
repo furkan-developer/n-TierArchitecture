@@ -1,9 +1,11 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Business.Abstact;
+using WebAPI.Business.ValidationRules.FluentValidation;
 using WebAPI.Core.Utilities.ResultStructure;
 using WebAPI.Core.Utilities.ResultStructure.Abstact;
 using WebAPI.Core.Utilities.ResultStructure.Concrete;
@@ -35,8 +37,15 @@ namespace WebAPI.Business.Concrete
 
         public IResult Insert(Product product)
         {
-            _rp.Insert(product);
-            return new SuccessResult("Product nesnesi eklendi.");
+            ProductValidator validationRules = new ProductValidator();
+            ValidationResult result = validationRules.Validate(product);
+            if (result.IsValid)
+            {
+                _rp.Insert(product);
+                return new SuccessResult("Product nesnesi eklendi.");
+            }
+            else
+                return new ErrorResult("Product nesnesi eklenemedi");
         }
 
         public IResult Update(Product product)
