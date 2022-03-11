@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Business.Abstact;
 using WebAPI.Business.ValidationRules.FluentValidation;
+using WebAPI.Core.CrossCuttingConcerns.Validation.FluentValidation;
 using WebAPI.Core.Utilities.ResultStructure;
 using WebAPI.Core.Utilities.ResultStructure.Abstact;
 using WebAPI.Core.Utilities.ResultStructure.Concrete;
@@ -37,15 +38,10 @@ namespace WebAPI.Business.Concrete
 
         public IResult Insert(Product product)
         {
-            ProductValidator validationRules = new ProductValidator();
-            ValidationResult result = validationRules.Validate(product);
-            if (result.IsValid)
-            {
-                _rp.Insert(product);
-                return new SuccessResult("Product nesnesi eklendi.");
-            }
-            else
-                return new ErrorResult("Product nesnesi eklenemedi");
+            ValidationTool.Validate(new ProductValidator(), product);
+
+            _rp.Insert(product);
+            return new SuccessResult("Product nesnesi eklendi.");
         }
 
         public IResult Update(Product product)
