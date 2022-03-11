@@ -38,6 +38,7 @@ namespace WebAPI.Business.Concrete
 
         public IResult Insert(Product product)
         {
+            //Single Responsiblty
             ValidationTool.Validate(new ProductValidator(), product);
 
             _rp.Insert(product);
