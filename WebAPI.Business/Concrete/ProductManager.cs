@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Business.Abstact;
 using WebAPI.Business.ValidationRules.FluentValidation;
+using WebAPI.Core.Ascepts;
 using WebAPI.Core.CrossCuttingConcerns.Validation.FluentValidation;
 using WebAPI.Core.Utilities.ResultStructure;
 using WebAPI.Core.Utilities.ResultStructure.Abstact;
@@ -36,11 +37,9 @@ namespace WebAPI.Business.Concrete
 
         }
 
+       [ValidationAscept(typeof(ProductValidator),Priority =1)]
         public IResult Insert(Product product)
-        {
-            //Single Responsiblty
-            ValidationTool.Validate(new ProductValidator(), product);
-
+        {           
             _rp.Insert(product);
             return new SuccessResult("Product nesnesi eklendi.");
         }

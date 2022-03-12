@@ -31,9 +31,9 @@ namespace WebAPI.Core.Interceptions.Castle
             OnAfter(invocation);
         }
 
-        public virtual void OnBefore(IInvocation ınvocation) { }
-        public virtual void OnAfter(IInvocation ınvocation) { }
-        public virtual void OnSuccess(IInvocation ınvocation) { }
-        public virtual void OnException(IInvocation ınvocation,Exception ex) { }
+        public virtual void OnBefore(IInvocation invocation) { }
+        public virtual void OnAfter(IInvocation invocation) { }
+        public virtual void OnSuccess(IInvocation invocation) { }
+        public virtual void OnException(IInvocation invocation, Exception ex) { }
     }
 }
