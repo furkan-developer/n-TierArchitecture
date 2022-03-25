@@ -8,6 +8,7 @@ using WebAPI.Business.Abstact;
 using WebAPI.Business.ValidationRules.FluentValidation;
 using WebAPI.Core.Ascepts;
 using WebAPI.Core.CrossCuttingConcerns.Validation.FluentValidation;
+using WebAPI.Core.Utilities.Business;
 using WebAPI.Core.Utilities.ResultStructure;
 using WebAPI.Core.Utilities.ResultStructure.Abstact;
 using WebAPI.Core.Utilities.ResultStructure.Concrete;
@@ -39,8 +40,12 @@ namespace WebAPI.Business.Concrete
 
        [ValidationAscept(typeof(ProductValidator),Priority =1)]
         public IResult Insert(Product product)
-        {           
-            _rp.Insert(product);
+        {
+            IResult result = BusinessRules.Run(CheckIfProductNameCorrect(product));
+            if (result != null)
+            {
+                return result;
+            }          
             return new SuccessResult("Product nesnesi eklendi.");
         }
 
@@ -49,5 +54,19 @@ namespace WebAPI.Business.Concrete
             _rp.Update(product);
             return new SuccessResult("Ürün güncelleme işlemi başarılı");
         }
+
+        #region
+
+        private IResult CheckIfProductNameCorrect(Product product)
+        {
+            bool result = _rp.GetAll(p => p.ProductName == product.ProductName).Any();
+            if (result)
+            {
+                return new ErrorResult(product.ProductName + " bu isme ait ürün mevcuttur.");
+            }
+            return new SuccessResult("Ürün eklendi.");
+        }
+
+        #endregion
     }
 }
