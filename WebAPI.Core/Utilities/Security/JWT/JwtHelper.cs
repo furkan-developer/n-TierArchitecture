@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using WebAPI.Core.Entities.Concrete;
+using WebAPI.Core.Extensions;
 using WebAPI.Core.Utilities.Security.Encryption;
 
 namespace WebAPI.Core.Utilities.Security.JWT
