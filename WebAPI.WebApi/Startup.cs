@@ -13,6 +13,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Business.Abstact;
 using WebAPI.Business.Concrete;
+using WebAPI.Core.DependencyResolvers;
+using WebAPI.Core.Extensions;
+using WebAPI.Core.IoC;
 using WebAPI.DataAccess.Abstract;
 using WebAPI.DataAccess.Concrete.EntityFramework;
 
@@ -35,7 +38,12 @@ namespace WebAPI.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI.WebApi", Version = "v1" });
-            });         
+            });
+
+            services.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule()
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
