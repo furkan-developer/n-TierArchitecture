@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using WebAPI.Business.Abstact;
 using WebAPI.Business.Concrete;
 using WebAPI.Core.Interceptions.Castle;
+using WebAPI.Core.Utilities.Security.JWT;
 using WebAPI.DataAccess.Abstract;
 using WebAPI.DataAccess.Concrete.EntityFramework;
 
@@ -20,6 +21,12 @@ namespace WebAPI.Business.DependencyResolvers.Autofac
         {
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
             builder.RegisterType<EfProductRepository>().As<IProductRepository>().SingleInstance();
+           
+            builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
+            builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
