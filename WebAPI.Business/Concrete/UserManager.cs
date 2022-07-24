@@ -7,6 +7,7 @@ using WebAPI.Business.Abstact;
 using WebAPI.Core.Entities.Concrete;
 using WebAPI.Core.Utilities.ResultStructure;
 using WebAPI.Core.Utilities.ResultStructure.Abstact;
+using WebAPI.Core.Utilities.ResultStructure.Concrete;
 using WebAPI.DataAccess.Abstract;
 
 namespace WebAPI.Business.Concrete
@@ -22,17 +23,24 @@ namespace WebAPI.Business.Concrete
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
-            return new DataResult<List<OperationClaim>>(_userDal.GetClaims(user),true);
+            var result = _userDal.GetClaims(user);
+            return new SuccessDataResult<List<OperationClaim>>(result);
         }
 
         public IResult Add(User user)
         {
-            return new Result(true);
+            _userDal.Insert(user);
+            return new SuccessResult();
         }
 
         public IDataResult<User> GetByMail(string email)
         {
-            return new DataResult<User>(_userDal.Get(u=>u.Email == email),true);
+            var result = _userDal.Get(u=>u.Email == email);
+            if (result != null)
+            {
+                return new ErrorDataResult<User>(result);
+            }
+            return new SuccessDataResult<User>(result);
         }
     }
 }

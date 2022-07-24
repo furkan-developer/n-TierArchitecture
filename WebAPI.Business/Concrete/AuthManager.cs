@@ -38,8 +38,12 @@ namespace WebAPI.Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = true
             };
-            _userService.Add(user);
-            return new SuccessDataResult<User>(user, "User registered");
+
+            var result = _userService.Add(user);
+            if(result.Process == true)
+                return new SuccessDataResult<User>(user, "User registered");
+            else 
+                return new ErrorDataResult<User>("User could not register");
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
@@ -60,7 +64,8 @@ namespace WebAPI.Business.Concrete
 
         public IResult UserExists(string email)
         {
-            if (_userService.GetByMail(email) != null)
+            var result = _userService.GetByMail(email);
+            if (result.Process == false)
             {
                 return new ErrorResult("User already exists");
             }
@@ -71,6 +76,10 @@ namespace WebAPI.Business.Concrete
         {
             var claims = _userService.GetClaims(user).Data;
             var accessToken = _tokenHelper.CreateToken(user, claims);
+
+            if (accessToken == null)
+                return new ErrorDataResult<AccessToken>("Access token not create");
+
             return new SuccessDataResult<AccessToken>(accessToken, "Access token created successfully");
         }
     }
