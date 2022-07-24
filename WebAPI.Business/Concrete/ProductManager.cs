@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Business.Abstact;
+using WebAPI.Business.BusinessAspects.Autofac;
 using WebAPI.Business.ValidationRules.FluentValidation;
 using WebAPI.Core.Ascepts;
 using WebAPI.Core.CrossCuttingConcerns.Validation.FluentValidation;
@@ -32,20 +33,22 @@ namespace WebAPI.Business.Concrete
             return new SuccessResult("Ürün silme işlemi başarılı");
         }
 
+        [SecuredOperation("admin", Priority = 1)]
         public IDataResult<List<Product>> GetAll()
         {
             return new SuccessDataResult<List<Product>>(_rp.GetAll(), "Ürünler listesi getirildi");
 
         }
 
-       [ValidationAscept(typeof(ProductValidator),Priority =1)]
+        [SecuredOperation("admin", Priority = 1)]
+        [ValidationAscept(typeof(ProductValidator), Priority = 2)]
         public IResult Insert(Product product)
         {
             IResult result = BusinessRules.Run(CheckIfProductNameCorrect(product));
             if (result != null)
             {
                 return result;
-            }          
+            }
             return new SuccessResult("Product nesnesi eklendi.");
         }
 
