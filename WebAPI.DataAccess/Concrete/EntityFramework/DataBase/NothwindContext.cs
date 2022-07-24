@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAPI.Core.Entities.Concrete;
 using WebAPI.Entities;
 
 namespace WebAPI.DataAccess.Concrete.EntityFramework.DataBase
@@ -16,5 +17,8 @@ namespace WebAPI.DataAccess.Concrete.EntityFramework.DataBase
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
