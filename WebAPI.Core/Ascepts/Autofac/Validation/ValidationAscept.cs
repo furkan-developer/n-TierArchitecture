@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using WebAPI.Core.CrossCuttingConcerns.Validation.FluentValidation;
 using WebAPI.Core.Interceptions.Castle;
 
-namespace WebAPI.Core.Ascepts
+namespace WebAPI.Core.Ascepts.Autofac.Validation
 {
     public class ValidationAscept : MethodInterception
     {

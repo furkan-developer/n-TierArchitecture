@@ -8,6 +8,7 @@ using WebAPI.Business.Abstact;
 using WebAPI.Business.BusinessAspects.Autofac;
 using WebAPI.Business.ValidationRules.FluentValidation;
 using WebAPI.Core.Ascepts;
+using WebAPI.Core.Ascepts.Autofac.Validation;
 using WebAPI.Core.CrossCuttingConcerns.Validation.FluentValidation;
 using WebAPI.Core.Utilities.Business;
 using WebAPI.Core.Utilities.ResultStructure;
