@@ -34,7 +34,6 @@ namespace WebAPI.Business.Concrete
             return new SuccessResult("Ürün silme işlemi başarılı");
         }
 
-        [SecuredOperation("admin", Priority = 1)]
         public IDataResult<List<Product>> GetAll()
         {
             return new SuccessDataResult<List<Product>>(_rp.GetAll(), "Ürünler listesi getirildi");
