@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Core.Extensions.Exceptions
 {
-    public class ErrorDetails
+    public class ValidationErrorDetails : ErrorDetails
     {
-        public string Message { get; set; }
-        public int StatusCode { get; set; }
+        public IEnumerable<ValidationFailure> Errors { get; set; }
 
         public override string ToString()
         {
