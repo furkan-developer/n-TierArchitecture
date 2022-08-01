@@ -46,7 +46,7 @@ namespace WebAPI.Business.Concrete
             return new SuccessDataResult<List<Product>>(result);
         }
 
-        [SecuredOperation("admin", Priority = 1)]
+        //[SecuredOperation("admin", Priority = 1)]
         [ValidationAscept(typeof(ProductValidator), Priority = 2)]
         public IResult Insert(Product product)
         {
@@ -55,6 +55,8 @@ namespace WebAPI.Business.Concrete
             {
                 return result;
             }
+
+            _rp.Insert(product);
             return new SuccessResult("Product nesnesi eklendi.");
         }
 
