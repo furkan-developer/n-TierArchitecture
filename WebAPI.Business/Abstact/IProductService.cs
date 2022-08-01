@@ -16,5 +16,6 @@ namespace WebAPI.Business.Abstact
         IResult Update(Product product);
 
         IDataResult<List<Product>> GetAll();
+        IDataResult<List<Product>> GetAllByCategoryId(int categoryId);
     }
 }

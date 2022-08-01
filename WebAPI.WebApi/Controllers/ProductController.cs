@@ -32,6 +32,18 @@ namespace WebAPI.WebApi.Controllers
                 return BadRequest(result);
         }
 
+        [HttpGet("GetAllByCategoryId-{categoryId}")]
+        public IActionResult GetAll(int categoryId)
+        {
+            var result = productManager.GetAllByCategoryId(categoryId);
+            if (result.Process)
+            {
+                return Ok(result);
+            }
+            else
+                return BadRequest(result);
+        }
+
         [HttpPost("Insert")]
         public IActionResult Insert(Product product)
         {

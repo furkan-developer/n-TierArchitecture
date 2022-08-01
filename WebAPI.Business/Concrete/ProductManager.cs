@@ -40,6 +40,12 @@ namespace WebAPI.Business.Concrete
 
         }
 
+        public IDataResult<List<Product>> GetAllByCategoryId(int categoryId)
+        {
+            var result = _rp.GetAll(p => p.CategoryId == categoryId);
+            return new SuccessDataResult<List<Product>>(result);
+        }
+
         [SecuredOperation("admin", Priority = 1)]
         [ValidationAscept(typeof(ProductValidator), Priority = 2)]
         public IResult Insert(Product product)
