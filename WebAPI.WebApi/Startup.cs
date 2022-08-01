@@ -22,6 +22,7 @@ using WebAPI.DataAccess.Abstract;
 using WebAPI.DataAccess.Concrete.EntityFramework;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Core.Utilities.Security.Encryption;
+using WebAPI.Core.Extensions.Exceptions;
 
 namespace WebAPI.WebApi
 {
@@ -78,6 +79,8 @@ namespace WebAPI.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI.WebApi v1"));
             }
+
+            app.ConfigureCustomExceptionMiddleware();
 
             // Belirtilen web sayfasýndan gelen tüm http isteklerini kabul eder (allow any header)
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
